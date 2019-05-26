@@ -66,20 +66,22 @@ const getContacts = async (email,password) => {
     
     console.log("1");
 
-    await page.goto('https://contacts.google.com/directory', {waitUntil: 'domcontentloaded'})
+    await page.goto('https://contacts.google.com/directory', {waitUntil: 'networkidle0'})
     console.log("2");
     page.evaluate((val)=>{
         document.getElementById("identifierId").value = val;
-        document.getElementsByClassName("Vwe4Vb MbhUzd")[0].click()
+        document.getElementsByClassName("Vwe4Vb MbhUzd")[0].click() 
     },email)
     await page.waitForNavigation({ waitUntil: 'networkidle0' })
     console.log("DOEN")
     page.evaluate((val)=>{
+      setTimeout(function(){
         document.getElementsByClassName ("whsOnd zHQkBf")[0].value = val;
         document.getElementsByClassName("Vwe4Vb MbhUzd")[0].click()
+      },500)
     },password)
     await page.waitForNavigation({ waitUntil: 'networkidle0' })
-
+console.log("passwordDone")
     /*
 
     for(contact of document.getElementsByClassName("zYQnTe")){
@@ -142,8 +144,20 @@ const getContacts = async (email,password) => {
         });
         console.log(currentScroll)
     }while(currentScroll!=scrollMax)
-    try {
+
+    const contactObj = contacts.reduce(function(acc,curr) {
+      acc[curr.email] = curr.name; //a, b, c
+      return acc;
+    }, {})
+
+      try {
         fs.writeFileSync('output.json', JSON.stringify(contacts))
+      } catch (err) {
+        console.error(err)
+      }
+
+      try {
+        fs.writeFileSync('outputObj.json', JSON.stringify(contactObj))
       } catch (err) {
         console.error(err)
       }
