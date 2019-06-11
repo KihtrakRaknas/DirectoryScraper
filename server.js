@@ -118,6 +118,8 @@ console.log("passwordDone")
             document.getElementsByClassName("E6Tb7b psZcEd")[document.getElementsByClassName("E6Tb7b psZcEd").length-1].scrollIntoView()
         })
 
+        await page.waitFor(5000)
+
         //Get contacts
         console.log("Scroll Down")
         let arr = await page.evaluate((contactsSoFar)=>{
@@ -130,7 +132,7 @@ console.log("passwordDone")
                     let email = contact.getElementsByClassName("hUL4le")[0].innerText
                     if(contactsSoFar.map(function(e) { return e.email; }).indexOf(email)!=-1){
                         console.log(contacts.indexOf({name:name,email:email}));
-                        break;
+                        continue;
                     }
                     contacts.push({name:name,email:email})
                 }
@@ -153,19 +155,19 @@ console.log("passwordDone")
     const filteredOutput = contacts.filter(obj => ![].filter.call(obj.name.replace(/\s/g,''), isFinite).length)
     console.log("done filtering output")
       try {
-        fs.writeFileSync('output.json', JSON.stringify(filteredOutput))
+        fs.writeFileSync('output2.json', JSON.stringify(filteredOutput))
       } catch (err) {
         console.error(err)
       }
 
       try {
-        fs.writeFileSync('rawOutput.json', JSON.stringify(contacts))
+        fs.writeFileSync('rawOutput2.json', JSON.stringify(contacts))
       } catch (err) {
         console.error(err)
       }
 
       try {
-        fs.writeFileSync('outputObj.json', JSON.stringify(contactObj))
+        fs.writeFileSync('outputObj2.json', JSON.stringify(contactObj))
       } catch (err) {
         console.error(err)
       }
