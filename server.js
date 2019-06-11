@@ -150,8 +150,16 @@ console.log("passwordDone")
       return acc;
     }, {})
 
+    const filteredOutput = contacts.filter(obj => ![].filter.call(obj.name.replace(/\s/g,''), isFinite).length)
+    console.log("done filtering output")
       try {
-        fs.writeFileSync('output.json', JSON.stringify(contacts))
+        fs.writeFileSync('output.json', JSON.stringify(filteredOutput))
+      } catch (err) {
+        console.error(err)
+      }
+
+      try {
+        fs.writeFileSync('rawOutput.json', JSON.stringify(contacts))
       } catch (err) {
         console.error(err)
       }
