@@ -120,7 +120,7 @@ console.log("passwordDone")
             document.getElementsByClassName("E6Tb7b psZcEd")[document.getElementsByClassName("E6Tb7b psZcEd").length-1].scrollIntoView()
         })
 
-        //await page.waitFor(5000)
+        await page.waitFor(5000)
 
         //Get contacts
         console.log("Scroll Down")
