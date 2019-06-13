@@ -74,6 +74,7 @@ const getContacts = async (email,password) => {
     },email)
     await page.waitForNavigation({ waitUntil: 'networkidle0' })
     console.log("DOEN")
+    await page.waitFor(1000)
     page.evaluate((val)=>{
       setTimeout(function(){
         document.getElementsByClassName ("whsOnd zHQkBf")[0].value = val;
@@ -102,7 +103,8 @@ console.log("passwordDone")
         for(contact of document.getElementsByClassName("zYQnTe")){
             let name = contact.getElementsByClassName("PDfZbf")[0].innerText
             let email = contact.getElementsByClassName("hUL4le")[0].innerText
-            contacts.push({name:name,email:email})
+            let image = contact.getElementsByClassName("HfynVe")[0].src
+            contacts.push({name:name,email:email,image:image})
         }
         return contacts
     })
@@ -118,7 +120,7 @@ console.log("passwordDone")
             document.getElementsByClassName("E6Tb7b psZcEd")[document.getElementsByClassName("E6Tb7b psZcEd").length-1].scrollIntoView()
         })
 
-        await page.waitFor(5000)
+        //await page.waitFor(5000)
 
         //Get contacts
         console.log("Scroll Down")
@@ -130,11 +132,12 @@ console.log("passwordDone")
                 if(loopNum>2){
                     let name = contact.getElementsByClassName("PDfZbf")[0].innerText
                     let email = contact.getElementsByClassName("hUL4le")[0].innerText
+                    let image = contact.getElementsByClassName("HfynVe")[0].src
                     if(contactsSoFar.map(function(e) { return e.email; }).indexOf(email)!=-1){
-                        console.log(contacts.indexOf({name:name,email:email}));
+                        console.log(contacts.indexOf({name:name,email:email,image:image}));
                         continue;
                     }
-                    contacts.push({name:name,email:email})
+                    contacts.push({name:name,email:email,image:image})
                 }
             }
             return contacts
@@ -153,21 +156,22 @@ console.log("passwordDone")
     }, {})
 
     const filteredOutput = contacts.filter(obj => ![].filter.call(obj.name.replace(/\s/g,''), isFinite).length)
+    console.log("contacts: "+filteredOutput.length)
     console.log("done filtering output")
       try {
-        fs.writeFileSync('output2.json', JSON.stringify(filteredOutput))
+        fs.writeFileSync('output.json', JSON.stringify(filteredOutput))
       } catch (err) {
         console.error(err)
       }
 
       try {
-        fs.writeFileSync('rawOutput2.json', JSON.stringify(contacts))
+        fs.writeFileSync('rawOutput.json', JSON.stringify(contacts))
       } catch (err) {
         console.error(err)
       }
 
       try {
-        fs.writeFileSync('outputObj2.json', JSON.stringify(contactObj))
+        fs.writeFileSync('outputObj.json', JSON.stringify(contactObj))
       } catch (err) {
         console.error(err)
       }
