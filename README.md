@@ -8,7 +8,8 @@ Install all npm packages like so
 ```bash
 npm install
 ```
-Then start the server with
+Then start the program with
 ```bash
 npm start
 ```
+This will update the *output.json* file
