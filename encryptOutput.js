@@ -10,7 +10,7 @@ module.exports = () => {
     const key = new NodeRSA();
     key.importKey(PRIVATE_KEY, 'private');
     console.log("Encrypting output.json...")
-    const content = fs.readFileSync('./output.json', 'utf8')
+    const content = fs.readFileSync('./outputBeforeEncrypt.json', 'utf8')
     const en = key.encryptPrivate(content, 'base64')
     // console.log(en)
     fs.writeFileSync('outputEncoded.txt', en)

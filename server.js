@@ -160,8 +160,8 @@ console.log("passwordDone")
     console.log("contacts: "+filteredOutput.length)
     console.log("done filtering output")
       try {
-        fs.writeFileSync('output.json', JSON.stringify(filteredOutput))
-        require('./encyptOutput')()
+        fs.writeFileSync('outputBeforeEncrypt.json', JSON.stringify(filteredOutput))
+        require('./encryptOutput')()
       } catch (err) {
         console.error(err)
       }
