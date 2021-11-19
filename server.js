@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs')
+require('dotenv').config();
 
 const getContacts = async (email,password) => {
     const browser = await puppeteer.launch({
@@ -160,6 +161,7 @@ console.log("passwordDone")
     console.log("done filtering output")
       try {
         fs.writeFileSync('output.json', JSON.stringify(filteredOutput))
+        require('./encyptOutput')()
       } catch (err) {
         console.error(err)
       }
@@ -178,4 +180,4 @@ console.log("passwordDone")
       console.log("DONE")
 }
 
-getContacts("10013096@sbstudents.org","***REMOVED***")
+getContacts(process.env.USERNAME,process.env.PASSWORD)
