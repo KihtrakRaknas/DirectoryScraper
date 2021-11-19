@@ -16,7 +16,7 @@ module.exports = () => {
     fs.writeFileSync('outputEncoded.txt', en)
 }
 
-// key.importKey(process.env.PUBLIC_KEY, 'private');
+// key.importKey(process.env.PUBLIC_KEY, 'public');
 // const content = fs.readFileSync('./outputEncoded.txt', 'utf8')
 // const en = key.decryptPublic(content, 'utf8')
 // fs.writeFileSync('outputDecoded.txt', en)-
