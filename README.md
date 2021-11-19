@@ -12,4 +12,4 @@ Then start the program with
 ```bash
 npm start
 ```
-This will update the *output.json* file
+This will update the *outputEncoded.txt* file
